@@ -1,0 +1,40 @@
+# Codebook for run_analysis.R
+
+Download the data zip file from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+Assigned the "features.txt" file to the "features" variable name and made them character class. 
+
+assigned the "X_train.txt" file to "train_x" variable with header = FALSE and sep = ' '
+assigned the "y_train.txt" file to "train_activity" variable with header = FALSE and sep = ' '
+assigned the "subject_train.txt" file to "train_subject" variable with header = FALSE and sep = ' '
+
+combined the three variables: "train_x", "train_activity", and "train_subject", to a data frame using data.frame. 
+using names function on the train data frame, set the names of the variables to "subject" and "activity". 
+
+do the same with the "X_test.txt", "y_test.txt", and "subject_test.txt" files and name the dataset "test". Set the names "subject" and "Activity" 
+
+using rbind, bind the data sets "train" and "test" into a data frame called "data"
+
+find the mean and standard deviation for each of the variables in "features" using grep function and assign it to "mean_std"
+
+create a data frame called "msdata" which is a subsection of the data frame "data" with the columns 1,2,mean_std + 2
+
+read.table on the file "activity_labels.txt" with header = FALSE and assign to activity_labels
+using as.character function, make the activity_labels column 2 into character class
+then assign the activity_labels to msdata$activity
+
+using names fundciton, set the names of "msdata" dataframe and assign it to "reName"
+using the gsub function, rename:
+  ^t to TimeDomain_
+  ^f to FrequencyDomain_
+  Acc to Accelerometer
+  Gyro to Gyroscope
+  Mag to Magnitude
+  -mean- to _Mean_
+  -std- to _StandardDeviation_
+  and - to _
+  
+  using the aggregate function, create a data set with "msdata" columns 3:81, averages for each activity and subject with FUN = mean
+  
+  using write.table, make the new data set a file names dataSet2 with row.names = FALSE. 
+  
